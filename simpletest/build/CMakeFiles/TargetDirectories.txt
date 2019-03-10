@@ -1,0 +1,3 @@
+/home/pi/Desktop/git_clones/spycam/simpletest/build/CMakeFiles/rebuild_cache.dir
+/home/pi/Desktop/git_clones/spycam/simpletest/build/CMakeFiles/edit_cache.dir
+/home/pi/Desktop/git_clones/spycam/simpletest/build/CMakeFiles/simpletest_raspicam.dir
