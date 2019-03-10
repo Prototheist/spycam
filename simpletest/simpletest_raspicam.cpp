@@ -1,48 +1,76 @@
-/**
+/*	COPYRIGHT 2019 PROTOTHEIST
+	This program will launch the pi cam and stream video.	
 */
+
 #include <ctime>
 #include <fstream>
 #include <iostream>
 #include <raspicam/raspicam_cv.h>
 #include <opencv2/opencv.hpp>
 
-using namespace std;
-
 int main ( int argc,char **argv ) 
 {
+	//! Objects
 	time_t timer_begin,timer_end;
-	raspicam::RaspiCam_Cv Camera; //Cmaera object
-	cv::Mat image;	
-	int nCount=100;
+	raspicam::RaspiCam_Cv myCamera;
+	int hasOpened = 0; 
+	int frame_width = 0;
+	int frame_height = 0;
+	cv::Mat frame;
+	int frameCount = 0;
 
-        //Open camera 
-        cout<<"Opening Camera..."<<endl;
-        cout<<Camera.open()<<endl;
+        //! Open camera 
+        printf("Opening camera\n");
+        hasOpened = myCamera.open();
 
-	
-    	//Start capture
-    	cout<<"Capturing "<<nCount<<" frames ...."<<endl;
-    	time ( &timer_begin );
-    	for ( int i=0; i<nCount; i++ ) 
+	//! Check if camera opened
+	if (0 == hasOpened )
 	{
-        	Camera.grab();
-        	Camera.retrieve(image);
-        	if ( i%5==0 )  
+		printf("ERROR: Cam failed to open\n");
+		return -1;
+	}
+		
+    	//Start capture
+    	printf("Starting capture ...\n");
+    	time ( &timer_begin );
+    	while(1)
+	{
+		//! Grab a frame
+        	myCamera.grab();
+        	myCamera.retrieve(frame);
+		
+		//! Write to video
+		if (frame.empty() )
 		{
-			cout<<"\r captured "<<i<<" images"<<std::flush;
+			break;
 		}
+		else
+		{
+			++frameCount;
+    		}
 
-    	}
+		// Display the resulting frame    
+    		cv::imshow( "Frame", frame );
+  
+    		// Press  ESC on keyboard to  exit
+    		char c = (char)cv::waitKey(1);
+    		if( c == 27 ) 
+		{
+			break;
+		}
+      			
+	}
 
-        cout<<"Stop camera..."<<endl;
-        Camera.release();
+        printf("Stop camera ...\n");
+        myCamera.release();
+
         //show time statistics
         time ( &timer_end ); /* get current time; same as: timer = time(NULL)  */
         double secondsElapsed = difftime ( timer_end,timer_begin );
-        cout<< secondsElapsed<<" seconds for "<< nCount<<"  frames : FPS = "<<  ( float ) ( ( float ) ( nCount ) /secondsElapsed ) <<endl;
-        //save image 
-        cv::imwrite("raspicam_cv_image.jpg",image);
-        cout<<"Image saved at raspicam_cv_image.jpg"<<endl;
+        std::cout<< secondsElapsed<<" seconds for "<< frameCount<<"  frames : FPS = "<<  ( float ) ( ( float ) ( frameCount ) /secondsElapsed ) <<std::endl;
+ 
+  	// Closes all the windows
+  	cv::destroyAllWindows();
 
     	return 0;
 }
