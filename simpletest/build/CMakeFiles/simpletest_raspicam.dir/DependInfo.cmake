@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pi/Desktop/git_clones/spycam/simpletest/simpletest_raspicam.cpp" "/home/pi/Desktop/git_clones/spycam/simpletest/build/CMakeFiles/simpletest_raspicam.dir/simpletest_raspicam.cpp.o"
+  "/home/cj/Desktop/git_clones/spycam/simpletest/simpletest_raspicam.cpp" "/home/cj/Desktop/git_clones/spycam/simpletest/build/CMakeFiles/simpletest_raspicam.dir/simpletest_raspicam.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

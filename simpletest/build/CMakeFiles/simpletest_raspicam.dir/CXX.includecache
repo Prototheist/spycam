@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/pi/Desktop/git_clones/spycam/simpletest/simpletest_raspicam.cpp
+/home/cj/Desktop/git_clones/spycam/simpletest/simpletest_raspicam.cpp
 ctime
 -
 fstream
